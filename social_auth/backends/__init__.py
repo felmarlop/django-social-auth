@@ -216,7 +216,7 @@ class OAuthBackend(SocialAuthBackend):
 
     def get_user_id(self, details, response):
         """OAuth providers return an unique user id in response"""
-        return response[self.ID_KEY]
+        return response.get(self.ID_KEY)
 
     @classmethod
     def extra_data(cls, user, uid, response, details=None):
