@@ -302,18 +302,18 @@ Processing Redirects and urlopen
 
     SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
-- Any ``urllib2.urlopen`` call will be performed with the default timeout
+- Any ``urllib.request.urlopen`` call will be performed with the default timeout
   value, to change it without affecting the global socket timeout define this
   setting (the value specifies timeout seconds)::
 
     SOCIAL_AUTH_URLOPEN_TIMEOUT = 30
 
-  ``urllib2.urlopen`` uses ``socket.getdefaulttimeout()`` value by default, so
+  ``urllib.request.urlopen`` uses ``socket.getdefaulttimeout()`` value by default, so
   setting ``socket.setdefaulttimeout(...)`` will affect ``urlopen`` when this
   setting is not defined, otherwise this setting takes precedence. Also this
   might affect other places in Django.
 
-  ``timeout`` argument was introduced in python 2.6 according to `urllib2
+  ``timeout`` argument was introduced in python 2.6 according to `urllib.request
   documentation`_
 
 
@@ -538,5 +538,5 @@ tokens on disconnect (only some backends support this).
 .. _OAuth: http://oauth.net/
 .. _MongoEngine: http://mongoengine.org
 .. _MongoEngine Django integration: http://mongoengine-odm.readthedocs.org/en/latest/django.html
-.. _urllib2 documentation: http://docs.python.org/library/urllib2.html#urllib2.urlopen
+.. _urllib documentation: http://docs.python.org/library/urllib.html#urllib.request
 .. _OpenID PAPE: http://openid.net/specs/openid-provider-authentication-policy-extension-1_0.html

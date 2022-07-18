@@ -1,9 +1,8 @@
 import re
-import urllib2
 import cookielib
-import urllib
-import urlparse
 import unittest
+import urllib.request as urllib2
+from urllib.parse import urlencode, urlparse
 from sgmllib import SGMLParser
 from django.conf import settings
 
@@ -67,7 +66,7 @@ class SocialAuthTestsCase(unittest.TestCase):
     def get_content(self, url, data=None, use_cookies=False):
         """Return content for given url, if data is not None, then a POST
         request will be issued, otherwise GET will be used"""
-        data = data and urllib.urlencode(data, doseq=True) or data
+        data = data and urlencode(data, doseq=True) or data
         request = urllib2.Request(url)
         agent = urllib2.build_opener()
 
@@ -79,7 +78,7 @@ class SocialAuthTestsCase(unittest.TestCase):
     def get_redirect(self, url, data=None, use_cookies=False):
         """Return content for given url, if data is not None, then a POST
         request will be issued, otherwise GET will be used"""
-        data = data and urllib.urlencode(data, doseq=True) or data
+        data = data and urlencode(data, doseq=True) or data
         request = urllib2.Request(url)
         agent = urllib2.build_opener(RedirectHandler())
 

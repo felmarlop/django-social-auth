@@ -16,8 +16,8 @@ import base64
 import hmac
 import hashlib
 import time
-from urllib import urlencode
-from urllib2 import HTTPError
+from urllib.parse import urlencode
+from urllib.request import HTTPError
 
 try:
     import json as simplejson

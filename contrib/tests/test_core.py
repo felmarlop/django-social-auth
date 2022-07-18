@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import urlparse
-
+from urllib.parse import urlparse
 from selenium import webdriver
 
 from django.test import TestCase

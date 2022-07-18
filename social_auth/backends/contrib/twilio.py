@@ -1,7 +1,7 @@
 """
 Twilio support
 """
-from urllib import urlencode
+from urllib.parse import urlencode
 from re import sub
 
 from django.contrib.auth import authenticate

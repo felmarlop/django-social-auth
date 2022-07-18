@@ -16,8 +16,8 @@ elif you're building iframe application,
 Then setup your application according manual and use information from
 registration mail to set settings values.
 """
-from urllib import urlencode, unquote
-from urllib2 import Request
+from urllib.parse import urlencode, unquote
+from urllib.request import Request
 from hashlib import md5
 
 try:

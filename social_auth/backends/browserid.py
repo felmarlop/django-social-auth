@@ -1,7 +1,6 @@
 """
 BrowserID support
 """
-from urllib import urlencode
 
 try:
     import json as simplejson
@@ -10,6 +9,8 @@ except ImportError:
         import simplejson
     except ImportError:
         from django.utils import simplejson
+
+from urllib.parse import urlencode
 
 from django.contrib.auth import authenticate
 

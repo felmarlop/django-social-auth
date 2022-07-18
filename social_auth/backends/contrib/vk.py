@@ -15,7 +15,7 @@ except ImportError:
 
 from django.contrib.auth import authenticate
 
-from urllib import urlencode
+from urllib.parse import urlencode
 from hashlib import md5
 from time import time
 

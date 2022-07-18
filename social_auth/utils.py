@@ -1,12 +1,10 @@
 import time
 import random
 import hashlib
-import urlparse
-import urllib
 import logging
-from urllib2 import urlopen
-from cgi import parse_qsl
+import urllib.request as urllib2
 
+from urllib.parse import urlparse, urlencode
 from collections import defaultdict
 
 from django.conf import settings
@@ -208,8 +206,8 @@ def url_add_parameters(url, params):
     """Adds parameters to URL, parameter will be repeated if already present"""
     if params:
         fragments = list(urlparse.urlparse(url))
-        fragments[4] = urllib.urlencode(parse_qsl(fragments[4]) +
-                                        params.items())
+        fragments[4] = urlencode(urlparse.parse_qsl(
+            fragments[4]) + params.items())
         url = urlparse.urlunparse(fragments)
     return url
 
@@ -234,7 +232,7 @@ def dsa_urlopen(*args, **kwargs):
     timeout = setting('SOCIAL_AUTH_URLOPEN_TIMEOUT')
     if timeout and 'timeout' not in kwargs:
         kwargs['timeout'] = timeout
-    return urlopen(*args, **kwargs)
+    return urllib2.urlopen(*args, **kwargs)
 
 
 def get_backend_name(backend):

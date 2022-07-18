@@ -13,9 +13,9 @@ to request.
 By default account id and token expiration time are stored in extra_data
 field, check OAuthBackend class for details on how to extend it.
 """
-from urllib import urlencode
-from urllib2 import Request, HTTPError
-from urlparse import parse_qsl
+from urllib.parse import urlencode
+from urllib.parse.urlparse import parse_qsl
+from urllib.request import Request, HTTPError
 from gzip import GzipFile
 from StringIO import StringIO
 
