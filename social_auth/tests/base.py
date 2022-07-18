@@ -1,9 +1,13 @@
 import re
-import urllib2
-import cookielib
-import urllib
-import urlparse
+import http.cookiejar
 import unittest
+from urllib.request import (
+    Request,
+    HTTPCookieProcessor,
+    HTTPRedirectHandler,
+    build_opener
+)
+from urllib.parse import urlencode, urlparse
 from sgmllib import SGMLParser
 from django.conf import settings
 
@@ -67,30 +71,30 @@ class SocialAuthTestsCase(unittest.TestCase):
     def get_content(self, url, data=None, use_cookies=False):
         """Return content for given url, if data is not None, then a POST
         request will be issued, otherwise GET will be used"""
-        data = data and urllib.urlencode(data, doseq=True) or data
-        request = urllib2.Request(url)
-        agent = urllib2.build_opener()
+        data = data and urlencode(data, doseq=True) or data
+        request = Request(url)
+        agent = build_opener()
 
         if use_cookies:
-            agent.add_handler(urllib2.HTTPCookieProcessor(self.get_jar()))
+            agent.add_handler(HTTPCookieProcessor(self.get_jar()))
         request.add_header('User-Agent', USER_AGENT)
         return ''.join(agent.open(request, data=data).readlines())
 
     def get_redirect(self, url, data=None, use_cookies=False):
         """Return content for given url, if data is not None, then a POST
         request will be issued, otherwise GET will be used"""
-        data = data and urllib.urlencode(data, doseq=True) or data
-        request = urllib2.Request(url)
-        agent = urllib2.build_opener(RedirectHandler())
+        data = data and urlencode(data, doseq=True) or data
+        request = Request(url)
+        agent = build_opener(RedirectHandler())
 
         if use_cookies:
-            agent.add_handler(urllib2.HTTPCookieProcessor(self.get_jar()))
+            agent.add_handler(HTTPCookieProcessor(self.get_jar()))
         request.add_header('User-Agent', USER_AGENT)
         return agent.open(request, data=data)
 
     def get_jar(self):
         if not self.jar:
-            self.jar = cookielib.CookieJar()
+            self.jar = http.cookiejar.CookieJar()
         return self.jar
 
     def reverse(self, name, backend):
@@ -170,6 +174,6 @@ class RefreshParser(CustomParser):
             self.value = REFRESH_RE.sub('', attrs.get('content')).strip("'")
 
 
-class RedirectHandler(urllib2.HTTPRedirectHandler):
+class RedirectHandler(HTTPRedirectHandler):
     def http_error_302(self, req, fp, code, msg, headers):
         return fp

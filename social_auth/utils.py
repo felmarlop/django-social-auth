@@ -1,12 +1,10 @@
 import time
 import random
 import hashlib
-import urlparse
-import urllib
 import logging
-from urllib2 import urlopen
-from cgi import parse_qsl
 
+from urllib.request import urlopen
+from urllib.parse import urlparse, urlencode
 from collections import defaultdict
 
 from django.conf import settings
@@ -208,8 +206,8 @@ def url_add_parameters(url, params):
     """Adds parameters to URL, parameter will be repeated if already present"""
     if params:
         fragments = list(urlparse.urlparse(url))
-        fragments[4] = urllib.urlencode(parse_qsl(fragments[4]) +
-                                        params.items())
+        fragments[4] = urlencode(urlparse.parse_qsl(
+            fragments[4]) + list(params.items()))
         url = urlparse.urlunparse(fragments)
     return url
 
@@ -228,7 +226,7 @@ class LazyDict(SimpleLazyObject):
 
 
 def dsa_urlopen(*args, **kwargs):
-    """Like urllib2.urlopen but sets a timeout defined by
+    """Like urlopen but sets a timeout defined by
     SOCIAL_AUTH_URLOPEN_TIMEOUT setting if defined (and not already in
     kwargs)."""
     timeout = setting('SOCIAL_AUTH_URLOPEN_TIMEOUT')

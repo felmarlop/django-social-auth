@@ -1,5 +1,5 @@
 """Social auth models"""
-import types
+import inspect
 
 from django.utils.importlib import import_module
 
@@ -12,4 +12,4 @@ SOCIAL_AUTH_MODELS_MODULE = import_module(setting('SOCIAL_AUTH_MODELS',
 globals().update((name, value) for name, value in
                     ((name, getattr(SOCIAL_AUTH_MODELS_MODULE, name))
                         for name in dir(SOCIAL_AUTH_MODELS_MODULE))
-                    if isinstance(value, (type, types.ClassType)))
+                    if inspect.isclass(value))

@@ -1,5 +1,3 @@
-import urllib
-
 try:
     import json as simplejson
 except ImportError:
@@ -8,6 +6,7 @@ except ImportError:
     except ImportError:
         from django.utils import simplejson
 
+from urllib.parse import urlencode
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.test.client import Client, RequestFactory
@@ -17,7 +16,7 @@ from social_auth.views import complete
 
 class DumbResponse(object):
     """
-    Response from a call to, urllib2.urlopen()
+    Response from a call to, urllib.request.urlopen()
     """
 
     def __init__(self, data_str, url=None):
@@ -84,7 +83,7 @@ class SocialClient(Client):
         token = 'dummyToken'
         backends = {
             'facebook': (
-                urllib.urlencode({
+                urlencode({
                     'access_token': token,
                     'expires': 3600,
                 }),
@@ -101,7 +100,7 @@ class SocialClient(Client):
             ),
 
             'linkedin': (
-                urllib.urlencode({
+                urlencode({
                     'oauth_token': token,
                     'oauth_token_secret': token,
                     'oauth_callback_confirmed': 'true',
@@ -109,7 +108,7 @@ class SocialClient(Client):
                         'https://api.linkedin.com/uas/oauth/authorize'),
                     'oauth_expires_in': 3600,
                 }),
-                urllib.urlencode({
+                urlencode({
                     'oauth_token': token,
                     'oauth_token_secret': token,
                     'oauth_expires_in': 3600,

@@ -14,8 +14,6 @@ setting, it must be a list of values to request.
 By default account id and token expiration time are stored in extra_data
 field, check OAuthBackend class for details on how to extend it.
 """
-from urllib import urlencode
-from urllib2 import HTTPError
 
 try:
     import json as simplejson
@@ -24,6 +22,9 @@ except ImportError:
         import simplejson
     except ImportError:
         from django.utils import simplejson
+
+from urllib.parse import urlencode
+from urllib.request import HTTPError
 
 from django.conf import settings
 

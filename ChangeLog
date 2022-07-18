@@ -333,7 +333,7 @@ ChangeLog
   * Merge pull request #421 from estebistec/master
   * Add missing User class attribute to mongoengine's UserSocialAuth
   * Doc about getdefaulttimeout()/setdefaulttimeout() and timeout parameter
-  * urllib2.urlopen timeout from settings. Refs #420
+  * urllib.request.urlopen timeout from settings. Refs #420
   * Merge pull request #419 from krvss/master
   * Fixing of VKontate OpenAPI authentication
   * Merge pull request #418 from ozexpert/patch-1
@@ -1268,7 +1268,7 @@ ChangeLog
   testing. Refs gh-25
 
   * social_auth/tests/base.py, social_auth/tests/twitter.py: Twitter tests
-  using urllib2 module. Refs gh-25
+  using urllib.request module. Refs gh-25
 
 2011-03-24  Matías Aguirre <matiasaguirre@gmail.com>
 

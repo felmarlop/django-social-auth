@@ -1,4 +1,3 @@
-from urllib2 import Request, urlopen
 
 try:
     import json as simplejson
@@ -8,6 +7,7 @@ except ImportError:
     except ImportError:
         from django.utils import simplejson
 
+from urllib.request import Request, urlopen
 from social_auth.backends import BaseOAuth2, OAuthBackend
 from social_auth.exceptions import AuthCanceled, AuthUnknownError
 

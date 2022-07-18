@@ -1,7 +1,7 @@
 """Steam OpenId support"""
 import re
-import urllib
-import urllib2
+from urllib.parse import urlencode
+from urllib.request import urlopen
 
 try:
     import json as simplejson
@@ -30,11 +30,11 @@ class SteamBackend(OpenIDBackend):
 
     def get_user_details(self, response):
         user_id = self._user_id(response)
-        url = USER_INFO + urllib.urlencode({'key': setting('STEAM_API_KEY'),
+        url = USER_INFO + urlencode({'key': setting('STEAM_API_KEY'),
                                             'steamids': user_id})
         details = {}
         try:
-            player = simplejson.load(urllib2.urlopen(url))
+            player = simplejson.load(urlopen(url))
         except (ValueError, IOError):
             pass
         else:

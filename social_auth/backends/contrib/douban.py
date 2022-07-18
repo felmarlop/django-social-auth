@@ -9,7 +9,6 @@ values.
 By default account id is stored in extra_data field, check OAuthBackend
 class for details on how to extend it.
 """
-from urllib2 import Request
 
 try:
     import json as simplejson
@@ -19,6 +18,7 @@ except ImportError:
     except ImportError:
         from django.utils import simplejson
 
+from urllib.request import Request
 from social_auth.utils import dsa_urlopen
 from social_auth.backends import ConsumerBasedOAuth, OAuthBackend, BaseOAuth2
 from social_auth.exceptions import AuthCanceled

@@ -12,7 +12,6 @@ http://developers.soundcloud.com/docs
 By default account id and token expiration time are stored in extra_data
 field, check OAuthBackend class for details on how to extend it.
 """
-from urllib import urlencode
 
 try:
     import json as simplejson
@@ -22,6 +21,7 @@ except ImportError:
     except ImportError:
         from django.utils import simplejson
 
+from urllib.parse import urlencode
 from social_auth.utils import dsa_urlopen
 from social_auth.backends import BaseOAuth2, OAuthBackend
 
