@@ -57,7 +57,7 @@ class AmazonAuth(BaseOAuth2):
         data = cls.refresh_token_params(token)
         data['redirect_uri'] = redirect_uri
         request = Request(cls.ACCESS_TOKEN_URL,
-                          data=urlencode(data),
+                          data=urlencode(data).encode('utf-8'),
                           headers=cls.auth_headers())
         return cls.process_refresh_token_response(dsa_urlopen(request).read())
 

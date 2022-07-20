@@ -94,7 +94,7 @@ def mailru_api(data):
     data.update({'app_id': settings.MAILRU_OAUTH2_CLIENT_KEY, 'secure': '1'})
     data['sig'] = mailru_sig(data)
 
-    params = urlencode(data)
+    params = urlencode(data).encode('utf-8')
     request = Request(MAILRU_API_URL, params)
     try:
         return simplejson.loads(dsa_urlopen(request).read())

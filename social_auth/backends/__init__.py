@@ -846,7 +846,8 @@ class BaseOAuth2(BaseOAuth):
         """Completes loging process, must return user instance"""
         self.process_error(self.data)
         params = self.auth_complete_params(self.validate_state())
-        request = Request(self.ACCESS_TOKEN_URL, data=urlencode(params),
+        request = Request(self.ACCESS_TOKEN_URL,
+                          data=urlencode(params).encode('utf-8'),
                           headers=self.auth_headers())
 
         try:
@@ -881,7 +882,7 @@ class BaseOAuth2(BaseOAuth):
     def refresh_token(cls, token):
         request = Request(
             cls.REFRESH_TOKEN_URL or cls.ACCESS_TOKEN_URL,
-            data=urlencode(cls.refresh_token_params(token)),
+            data=urlencode(cls.refresh_token_params(token)).encode('utf-8'),
             headers=cls.auth_headers()
         )
         return cls.process_refresh_token_response(dsa_urlopen(request).read())
@@ -910,7 +911,7 @@ class BaseOAuth2(BaseOAuth):
         if cls.REVOKE_TOKEN_METHOD == 'GET':
             url = '{}?{}'.format(url, urlencode(params))
         else:
-            data = urlencode(params)
+            data = urlencode(params).encode('utf-8')
 
         request = Request(url, data=data, headers=headers)
         if cls.REVOKE_TOKEN_URL.lower() not in ('get', 'post'):

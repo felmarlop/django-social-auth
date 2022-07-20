@@ -66,7 +66,7 @@ class BrowserIDAuth(BaseAuth):
         data = urlencode({
             'assertion': self.data['assertion'],
             'audience': self.request.get_host()
-        })
+        }).encode('utf-8')
 
         try:
             response = simplejson.load(dsa_urlopen(BROWSER_ID_SERVER,

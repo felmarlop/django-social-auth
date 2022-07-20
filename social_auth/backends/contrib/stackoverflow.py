@@ -73,7 +73,8 @@ class StackoverflowAuth(BaseOAuth2):
         """Completes loging process, must return user instance"""
         self.process_error(self.data)
         params = self.auth_complete_params(self.validate_state())
-        request = Request(self.ACCESS_TOKEN_URL, data=urlencode(params),
+        request = Request(self.ACCESS_TOKEN_URL,
+                          data=urlencode(params).encode('utf-8'),
                           headers=self.auth_headers())
 
         try:
