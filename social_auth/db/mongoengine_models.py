@@ -3,6 +3,8 @@ MongoEngine models for Social Auth
 
 Requires MongoEngine 0.6.10
 """
+import simplejson
+
 try:
     from django.contrib.auth.hashers import UNUSABLE_PASSWORD
     _ = UNUSABLE_PASSWORD  # to quiet flake

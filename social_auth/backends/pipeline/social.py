@@ -59,7 +59,7 @@ def load_extra_data(backend, details, response, uid, user, social_user=None,
             extra_data['email'] = kwargs.get('original_email')
         if extra_data and social_user.extra_data != extra_data:
             if social_user.extra_data:
-                social_user.extra_data.update(extra_data)
+                social_user.set_extra_data(extra_data)
             else:
                 social_user.extra_data = extra_data
             social_user.save()

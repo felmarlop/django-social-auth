@@ -1,4 +1,6 @@
 """Django ORM models for Social Auth"""
+import simplejson
+
 from django.db import models
 from django.db.models.loading import get_model
 from django.db.utils import IntegrityError
@@ -37,7 +39,7 @@ class UserSocialAuth(models.Model, UserSocialAuthMixin):
     user = models.ForeignKey(USER_MODEL, related_name='social_auth')
     provider = models.CharField(max_length=32)
     uid = models.CharField(max_length=UID_LENGTH)
-    extra_data = JSONField(default='{}')
+    extra_data = JSONField()
 
     class Meta:
         """Meta data"""
