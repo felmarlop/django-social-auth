@@ -2,8 +2,7 @@
 Yammer OAuth2 support
 """
 import logging
-from urllib.parse import urlencode
-from urllib.parse.urlparse import parse_qs
+from urllib.parse import urlencode, parse_qs
 
 try:
     import json as simplejson

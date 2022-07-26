@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from urllib.parse import urlparse
+from urllib.parse import urljoin
 from selenium import webdriver
 
 from django.test import TestCase
@@ -14,7 +14,7 @@ class BackendsTest(TestCase):
         self.driver.quit()
 
     def url(self, path):
-        return urlparse.urljoin(settings.TEST_DOMAIN, path)
+        return urljoin(settings.TEST_DOMAIN, path)
 
     def test_twitter_backend(self):
         # We grab the Twitter testing user details from settings file

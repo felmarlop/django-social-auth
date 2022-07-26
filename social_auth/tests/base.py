@@ -7,7 +7,7 @@ from urllib.request import (
     HTTPRedirectHandler,
     build_opener
 )
-from urllib.parse import urlencode, urlparse
+from urllib.parse import urlencode, urlparse, urlunparse
 from sgmllib import SGMLParser
 from django.conf import settings
 
@@ -103,8 +103,8 @@ class SocialAuthTestsCase(unittest.TestCase):
 
     def make_relative(self, value):
         """Converst URL to relative, useful for server responses"""
-        parsed = urlparse.urlparse(value)
-        return urlparse.urlunparse(('', '', parsed.path, parsed.params,
+        parsed = urlparse(value)
+        return urlunparse(('', '', parsed.path, parsed.params,
                                     parsed.query, parsed.fragment))
 
 

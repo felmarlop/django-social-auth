@@ -4,7 +4,7 @@ import hashlib
 import logging
 
 from urllib.request import urlopen
-from urllib.parse import urlparse, urlencode
+from urllib.parse import urlparse, urlunparse, parse_qsl, urlencode
 from collections import defaultdict
 
 from django.conf import settings
@@ -107,7 +107,7 @@ def sanitize_redirect(host, redirect_to):
 
     # Heavier security check, don't allow redirection to a different host.
     try:
-        netloc = urlparse.urlparse(redirect_to)[1]
+        netloc = urlparse(redirect_to)[1]
     except TypeError:  # not valid redirect_to value
         return None
 
@@ -205,10 +205,10 @@ def clean_partial_pipeline(request):
 def url_add_parameters(url, params):
     """Adds parameters to URL, parameter will be repeated if already present"""
     if params:
-        fragments = list(urlparse.urlparse(url))
-        fragments[4] = urlencode(urlparse.parse_qsl(
+        fragments = list(urlparse(url))
+        fragments[4] = urlencode(parse_qsl(
             fragments[4]) + list(params.items()))
-        url = urlparse.urlunparse(fragments)
+        url = urlunparse(fragments)
     return url
 
 

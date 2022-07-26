@@ -5,7 +5,7 @@ No extra configurations are needed to make this work.
 """
 
 try:
-    from urllib.parse.urlparse import parse_qs
+    from urllib.parse import parse_qs
     parse_qs  # placate pyflakes
 except ImportError:
     # fall back for Python 2.5
