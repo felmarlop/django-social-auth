@@ -112,7 +112,7 @@ class EvernoteAuth(ConsumerBasedOAuth):
         """Return user data provided"""
         # drop lists
         return dict([(key, val[0]) for key, val in
-            list(access_token.user_info.items())])
+            access_token.user_info.items()])
 
 
 # Backend definition

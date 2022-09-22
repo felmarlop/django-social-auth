@@ -171,7 +171,7 @@ class FacebookAuth(BaseOAuth2):
     @classmethod
     def process_refresh_token_response(cls, response):
         return dict((key, val[0])
-                        for key, val in list(cgi.parse_qs(response).items()))
+                        for key, val in cgi.parse_qs(response).items())
 
     @classmethod
     def refresh_token_params(cls, token):

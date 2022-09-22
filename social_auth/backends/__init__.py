@@ -367,7 +367,7 @@ class BaseAuth(object):
             'backend': self.AUTH_BACKEND.name,
             'args': tuple(map(model_to_ctype, args)),
             'kwargs': dict((key, model_to_ctype(val))
-                                for key, val in list(kwargs.items()))
+                                for key, val in kwargs.items())
         }
 
     def from_session_dict(self, session_data, *args, **kwargs):
@@ -378,9 +378,9 @@ class BaseAuth(object):
 
         kwargs = kwargs.copy()
         saved_kwargs = dict((key, ctype_to_model(val))
-                            for key, val in list(session_data['kwargs'].items()))
+                            for key, val in session_data['kwargs'].items())
         saved_kwargs.update((key, val)
-                            for key, val in list(kwargs.items()))
+                            for key, val in kwargs.items())
         return (session_data['next'], args, saved_kwargs)
 
     def continue_pipeline(self, *args, **kwargs):
@@ -407,7 +407,7 @@ class BaseAuth(object):
         """
         backend_name = self.AUTH_BACKEND.name.upper().replace('-', '_')
         extra_arguments = setting(backend_name + '_AUTH_EXTRA_ARGUMENTS', {})
-        for key, value in list(extra_arguments.items()):
+        for key, value in extra_arguments.items():
             if key in self.data:
                 extra_arguments[key] = self.data[key]
             elif value:
@@ -483,7 +483,7 @@ class OpenIdAuth(BaseAuth):
 
     def continue_pipeline(self, *args, **kwargs):
         """Continue previous halted pipeline"""
-        response = self.consumer().complete(dict(list(self.data.items())),
+        response = self.consumer().complete(dict(self.data.items()),
                                             self.build_absolute_uri())
         kwargs.update({
             'auth': self,
@@ -494,7 +494,7 @@ class OpenIdAuth(BaseAuth):
 
     def auth_complete(self, *args, **kwargs):
         """Complete auth process"""
-        response = self.consumer().complete(dict(list(self.data.items())),
+        response = self.consumer().complete(dict(self.data.items()),
                                             self.build_absolute_uri())
         if not response:
             raise AuthException(self, 'OpenID relying party endpoint')
